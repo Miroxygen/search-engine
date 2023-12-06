@@ -13,12 +13,14 @@ class PageDataBase:
         self.pages.append(page)
 
     #Creates a page object from input data.
-    def generate_page(self, url, words):
+    def generate_page(self, url, words, links):
         page = Page(url)
         word_ids = []
         for word in words:
             word_id = self.get_word_id(word)
             word_ids.append(word_id)
+        for link in links:
+            page.links.append(link)
         page.words = word_ids
         self.add_page(page)
     
