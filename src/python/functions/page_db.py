@@ -20,7 +20,7 @@ class PageDataBase:
             word_id = self.get_word_id(word)
             word_ids.append(word_id)
         for link in links:
-            page.links.append(link)
+            page.links.add(link)
         page.words = word_ids
         self.add_page(page)
     

@@ -314,4 +314,7 @@ pyrightconfig.json
 # Wikipedia data 
 /wikipedia
 
+#Pickle data
+.pkl
+
 # End of https://www.toptal.com/developers/gitignore/api/python,node

@@ -1,6 +1,9 @@
 
 
 #Defines a simple search engine.
+
+
+
 class SearchEngine:
 
     def __init__(self, db):
@@ -16,19 +19,25 @@ class SearchEngine:
         matching_pages = []
         freq = []
         loc = []
+        pr = []
         for page in self.page_db.pages:
-            if all(ids in page.words for ids in word_ids):
+            if any(ids in page.words for ids in word_ids):
                 matching_pages.append(page)
                 freq.append(self.word_frequency(word_ids, page.words))
                 loc.append(self.document_location(word_ids, page.words))
+                pr.append(page.page_rank)
+           
         self.normalize_score(freq, False)
         self.normalize_score(loc)
+        self.normalize_score(pr, False)
         result = []
+        print(len(matching_pages))
         for i in range(len(matching_pages)):
-            score = freq[i] + 0.8 * loc[i] 
-            result.append({"page" : matching_pages[i].url, "score" : score , "freq" : freq[i], "loc" : (loc[i] * 0.8)})
+            score = freq[i] + 0.8 * loc[i] + 0.5 * pr[i]
+            result.append({"page" : matching_pages[i].url, "score" : round(score, 2) , "freq" : round(freq[i], 2), "loc" : round((loc[i] * 0.8), 2), "pr" : round((0.5 * pr[i]), 2)})
         sort = sorted(result, key=lambda x: x['score'], reverse=True)
-        for s in sort:
+        only_five = sort[:5]
+        for s in only_five:
             print(s)
         
     
