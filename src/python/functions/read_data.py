@@ -12,7 +12,6 @@ programming = []
 programming_links_folder = 'wikipedia/Links/Programming'
 programming_links = []
 
-url_prefix = "https://wikipedia.org/wiki/"
 
 def read_file(filename):
     with open(filename, 'r') as file:
@@ -38,7 +37,6 @@ for file in os.listdir(programming_links_folder):
     file_path = os.path.join(programming_links_folder, file)
     link = read_file(file_path)
     programming_links.append({"link" : link})
-
 
 
 

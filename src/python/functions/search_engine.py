@@ -13,32 +13,40 @@ class SearchEngine:
     def search(self, query):
         split_query = query.split()
         word_ids = []
+
         for query in split_query:
             id = self.page_db.get_word_id(query)
             word_ids.append(id)
-        matching_pages = []
-        freq = []
-        loc = []
-        pr = []
+
+        pages_matching_words = []
+        word_frequency_per_page = []
+        document_location_per_page = []
+        page_rank_per_page = []
+
         for page in self.page_db.pages:
             if any(ids in page.words for ids in word_ids):
-                matching_pages.append(page)
-                freq.append(self.word_frequency(word_ids, page.words))
-                loc.append(self.document_location(word_ids, page.words))
-                pr.append(page.page_rank)
-           
-        self.normalize_score(freq, False)
-        self.normalize_score(loc)
-        self.normalize_score(pr, False)
+                pages_matching_words.append(page)
+                word_frequency_per_page.append(self.word_frequency(word_ids, page.words))
+                document_location_per_page.append(self.document_location(word_ids, page.words))
+                page_rank_per_page.append(page.page_rank)
+        if len(pages_matching_words) < 1 : #If no results, return.
+            return 
+        
+        self.normalize_score(word_frequency_per_page, False)
+        self.normalize_score(document_location_per_page)
+        self.normalize_score(page_rank_per_page, False)
         result = []
-        print(len(matching_pages))
-        for i in range(len(matching_pages)):
-            score = freq[i] + 0.8 * loc[i] + 0.5 * pr[i]
-            result.append({"page" : matching_pages[i].url, "score" : round(score, 2) , "freq" : round(freq[i], 2), "loc" : round((loc[i] * 0.8), 2), "pr" : round((0.5 * pr[i]), 2)})
+
+        print(len(pages_matching_words))
+        for i in range(len(pages_matching_words)):
+            score = word_frequency_per_page[i] + 0.8 * document_location_per_page[i] + 0.5 * page_rank_per_page[i]
+            result.append({"page" : pages_matching_words[i].url, "score" : round(score, 2) , "freq" : round(word_frequency_per_page[i], 2), "loc" : round((document_location_per_page[i] * 0.8), 2), "pr" : round((0.5 * page_rank_per_page[i]), 2)})
         sort = sorted(result, key=lambda x: x['score'], reverse=True)
+
         only_five = sort[:5]
         for s in only_five:
             print(s)
+        return {"result" : sort[:5], "number" : len(pages_matching_words)}
         
     
     #Counts occurences of words in a page.
