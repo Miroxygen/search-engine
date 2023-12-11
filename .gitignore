@@ -313,6 +313,7 @@ pyrightconfig.json
 
 # Wikipedia data 
 /wikipedia
+/wik2
 
 #Pickle data
 .pkl

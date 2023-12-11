@@ -30,6 +30,7 @@ class SearchEngine:
                 document_location_per_page.append(self.document_location(word_ids, page.words))
                 page_rank_per_page.append(page.page_rank)
         if len(pages_matching_words) < 1 : #If no results, return.
+            print("No results")
             return 
         
         self.normalize_score(word_frequency_per_page, False)

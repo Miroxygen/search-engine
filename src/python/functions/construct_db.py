@@ -14,7 +14,7 @@ for i in range(len(games)):
 for i in range(len(programming)):
     page_db.generate_page(programming[i]['url'], programming[i]['words'], programming_links[i]['link'])
 
-h = page_db.pages[:5]
+h = page_db.pages[:4]
 
 page_rank(page_db.pages)
 

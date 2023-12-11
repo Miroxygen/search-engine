@@ -2,14 +2,14 @@ import os
 
 #Hardcoded methods for extracting Games and Programming wikipedia article words in indexed arrays within two arrays (Games, Programming).
 
-game_folder = 'wikipedia/Words/Games'
+game_folder = 'wik2/wikipedia/Words/Games'
 games = []
-game_links_folder = 'wikipedia/Links/Games'
+game_links_folder = 'wik2/wikipedia/Links/Games'
 games_links = []
 
-programming_folder = 'wikipedia/Words/Programming'
+programming_folder = 'wik2/wikipedia/Words/Programming'
 programming = []
-programming_links_folder = 'wikipedia/Links/Programming'
+programming_links_folder = 'wik2/wikipedia/Links/Programming'
 programming_links = []
 
 
