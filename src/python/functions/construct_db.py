@@ -16,7 +16,17 @@ for i in range(len(programming)):
 
 h = page_db.pages[:4]
 
-page_rank(page_db.pages)
+ranks = page_rank(page_db.pages)
+
+def normalize_score(scores):
+  max_value = max(scores)
+  for i in range(len(scores)):
+      scores[i] = float(scores[i]) / max(max_value, 0.00001)
+
+normalize_score(ranks)
+
+for j in range(len(page_db.pages)):
+    page_db.pages[j].page_rank = ranks[j]
 
 with open('page_db_instance.pkl', 'wb') as file:
     pickle.dump(page_db, file)

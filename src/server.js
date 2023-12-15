@@ -30,8 +30,8 @@ app.use(session({
     }
 }))
 
-  app.listen(process.env.PORT, () => {
-    console.log(`Server running at http://localhost:${process.env.PORT}`)
+  app.listen(process.env.PORT || 8084, () => {
+    console.log(`Server running at http://localhost:${process.env.PORT || 8084}`)
   })
   app.use('/', router)
   

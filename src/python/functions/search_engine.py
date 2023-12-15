@@ -35,18 +35,14 @@ class SearchEngine:
         
         self.normalize_score(word_frequency_per_page, False)
         self.normalize_score(document_location_per_page)
-        self.normalize_score(page_rank_per_page, False)
+        
         result = []
 
-        print(len(pages_matching_words))
         for i in range(len(pages_matching_words)):
             score = word_frequency_per_page[i] + 0.8 * document_location_per_page[i] + 0.5 * page_rank_per_page[i]
-            result.append({"page" : pages_matching_words[i].url, "score" : round(score, 2) , "freq" : round(word_frequency_per_page[i], 2), "loc" : round((document_location_per_page[i] * 0.8), 2), "pr" : round((0.5 * page_rank_per_page[i]), 2)})
+            result.append({"page" : pages_matching_words[i].url, "score" : round(score, 2) , "freq" : round(word_frequency_per_page[i], 2), "loc" : round((0.8 * document_location_per_page[i]), 2), "pr" : round(((0.5 * page_rank_per_page[i])),2)})
         sort = sorted(result, key=lambda x: x['score'], reverse=True)
 
-        only_five = sort[:5]
-        for s in only_five:
-            print(s)
         return {"result" : sort[:5], "number" : len(pages_matching_words)}
         
     
