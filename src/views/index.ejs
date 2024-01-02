@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css" />
+  <title>Document</title>
+</head>
+<body>
+  <header></header>
+  <h1>DogDogVoff</h1>
+  <div id="container">
+    <img src="plum.png" alt="">
+    <form action="/data" method="POST">
+      <label for="search">Search :</label><br>
+      <input type="text" id="search" name="search" value="Sök med DogDogVoff"><br>
+      <button type="submit">Sök</button>
+    </form>
+    <div id="result">
+      <% if(result) { %>
+        <table>
+          <tr>
+            <td>Länk</td>
+            <td>Betyg</td>
+            <td>Frekvens</td>
+            <td>Lokalisering</td>
+            <td>Sidorank </td>
+          </tr>
+        <% for(let i = 0; i < result.result.length; i++) { %>
+          <tr>
+            <td>
+              <a href="<%= result.result[i].page %>">
+                <% let replaced = result.result[i].page.replace("https://wikipedia.org/wiki/", "") %>
+                <% replaced =  replaced.replaceAll("_", " ") %>
+                <%= replaced %>
+            </td>
+            <td><%= result.result[i].score %></td>
+            <td><%= result.result[i].freq %></td>
+            <td><%= result.result[i].loc %></td>
+            <td><%= result.result[i].pr %></td>
+          </tr>
+       <%  } %>
+      </table>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
